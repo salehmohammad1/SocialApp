@@ -1,0 +1,17 @@
+setting up a work space
+
+	mkdir myproject
+	cd myproject
+	python3 -m venv myenv
+	source myenv/bin/activate
+	pip install django
+	django-admin startproject <project_name> . 
+
+Note that the period . at the end of thestartproject command tells Django to create the 			project in the current directory. If you omit the period, Django will   create a new subdirectory with the project name.
+
+	pip freeze > requirements.txt
+	pip install -r requirements.txt
+
+	python manage.py migrate
+	python manage.py startapp <app_name> #use different name
+	python manage.py runserver
