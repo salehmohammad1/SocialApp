@@ -1,39 +1,31 @@
-from datetime import datetime
-from django.contrib.auth.models import User
 from django.db import models
+from django.contrib.auth.models import User
+from django.urls import reverse
+from django.utils import timezone
 
-
-# Creating a custom path for storing the user photos
-# Example: /MEDIA_ROOT/photos/1234567890/abc.jpg
-def path(instance, filename):
-    return 'photos/{0}/{1}'.format(instance.author.username, filename)
-
-
-class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    bio = models.TextField(max_length=500, blank=True, null=True)
-    display = models.FileField(blank=True, null=True)
-
-
+# This model is for any post that a user posts on the website.
 class Post(models.Model):
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='post_written')
-    caption = models.TextField(max_length=500)
-    photo = models.FileField(upload_to=path)
-    likes = models.ManyToManyField(User, related_name='posts_liked', blank=True)
-    time = models.DateTimeField(default=datetime.now)
+	description = models.CharField(max_length=255, blank=True)
+	pic = models.ImageField(upload_to='path/to/img')
+	date_posted = models.DateTimeField(default=timezone.now)
+	user_name = models.ForeignKey(User, on_delete=models.CASCADE)
+	tags = models.CharField(max_length=100, blank=True)
 
-    objects = models.Manager()
-
-    def __str__(self):
-        return f"{self.author.username} - {str(self.time)}"
+	def __str__(self):
+		return self.description
 
 
-class Comment(models.Model):
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
-   
-    post = models.ForeignKey(Post, on_delete=models.CASCADE)
-    text = models.CharField(max_length=200)
-    time = models.DateTimeField(default=datetime.now)
+	def get_absolute_url(self):
+		return reverse('post-detail', kwargs={'pk': self.pk})
+ 
+# Comment model links a comment with the post and the user. 
+class Comments(models.Model):
+	post = models.ForeignKey(Post, related_name='details', on_delete=models.CASCADE)
+	username = models.ForeignKey(User, related_name='details', on_delete=models.CASCADE)
+	comment = models.CharField(max_length=255)
+	comment_date = models.DateTimeField(default=timezone.now)
 
-    def __str__(self):
-        return f"{self.author.username} - {self.post.id} - {str(self.time)}"
+# It stores the like info. It has the user who created the like and the post on which like was made.
+class Like(models.Model):
+	user = models.ForeignKey(User, related_name='likes', on_delete=models.CASCADE)
+	post = models.ForeignKey(Post, related_name='likes', on_delete=models.CASCADE)	
