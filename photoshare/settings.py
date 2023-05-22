@@ -11,8 +11,8 @@ from pathlib import Path
 #from decouple import config
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-#BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+#BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
@@ -82,10 +82,15 @@ WSGI_APPLICATION = 'photoshare.wsgi.application'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
+  'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'USER': '',
+        'PASSWORD': '',
+        'HOST': '',
+        'PORT': '',
     }
+
 }
 
 '''
@@ -169,11 +174,11 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 
-DEFAULT_FILE_STORAGE = 'django_gcloud_storage.DjangoGCloudStorage'
+#DEFAULT_FILE_STORAGE = 'django_gcloud_storage.DjangoGCloudStorage'
 
-GCS_PROJECT = os.environ.get('GCS_PROJECT')
-GCS_BUCKET = os.environ.get('GCS_BUCKET')
-GCS_CREDENTIALS_FILE_PATH = os.path.join(BASE_DIR, "my-key.json")
-GCS_USE_UNSIGNED_URLS = True
+#GCS_PROJECT = os.environ.get('GCS_PROJECT')
+#GCS_BUCKET = os.environ.get('GCS_BUCKET')
+#GCS_CREDENTIALS_FILE_PATH = os.path.join(BASE_DIR, "my-key.json")
+#GCS_USE_UNSIGNED_URLS = True
 
 django_heroku.settings(locals())
