@@ -1,0 +1,44 @@
+chapter 4
+
+comments are good if used correctly. The proper use of comments is to compensate for our failure to express ourself in
+code. Note that I used the word failure. I meant it. Comments are always failures. We must
+have them because we cannot always figure out how to express ourselves without them,
+but their use is not a cause for celebration. Code is always changing and understanding
+
+good comments 
+ 
+- legal comments
+- you’ll see ownership of the program or IDE info.	Interoperate for legal reasons, copyright, ownership, autorship.
+
+- informative comments
+	-  Sometimes a comment goes beyond just useful information about the implementation and
+provides the intent behind a decision. In the following case we see an interesting decision
+documented by a comment. When comparing two objects, the author decided that he
+wanted to sort objects of his class higher than objects of any other.
+
+Clarification
+
+In general it is better to ﬁnd a way to make that argu-
+ment or return value clear in its own right; but when its part of the standard library, or in
+code that you cannot alter, then a helpful clarifying comment can be useful.
+
+
+ToDo comments
+
+In the
+following case, the TODO comment explains why the function has a degenerate implementa-
+tion and what that function’s future should be.
+
+
+
+
+Bad comments
+
+Most comments fall into this category. Usually they are crutches or excuses for poor code
+or justification for insufficient decisions, amounting to little more than the programmer
+talking to himself.
+
+Dont write redundant code. It is not easier to read than
+the code. Indeed, it is less precise than the code and entices the reader to accept that lack of
+precision in lieu of true understanding. It is rather like a glad handing used-car salesman
+assuring you that you don’t need to look under the hood.
